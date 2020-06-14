@@ -1,0 +1,31 @@
+{
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"Images/*": [
+				"./src/assets/images/*"
+			],
+			"Styles/*": [
+				"./src/assets/styles/*"
+			],
+			"Components/*": [
+				"./src/components/*"
+			],
+			"Mixins/*": [
+				"./src/mixins/*"
+			],
+			"Pages/*": [
+				"./src/pages/*"
+			],
+			"Plugins/*": [
+				"./src/plugins/*"
+			],
+			"Utils/*": [
+				"./src/utils/*"
+			],
+			"Helpers/*": [
+				"./src/helpers/*"
+			]
+		}
+	}
+}
