@@ -5,6 +5,11 @@ export default [
 		component: () => import('Pages/Home'),
 	},
 	{
+		name: 'Movie',
+		path: 'movie/:id',
+		component: () => import('Pages/Movie'),
+	},
+	{
 		name: 'The404',
 		path: '*',
 		component: () => import('Pages/The404'),
