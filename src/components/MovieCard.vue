@@ -71,6 +71,7 @@ export default {
 
 	&__poster {
 		width: 220px;
+		min-height: 312px;
 		flex-shrink: 0;
 		line-height: 0;
 

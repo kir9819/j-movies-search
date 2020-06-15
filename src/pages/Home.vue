@@ -3,9 +3,15 @@
 		<h2 class="search-label">Поиск фильмов</h2>
 
 		<div class="search-container">
-			<input v-model="searchQuery" @keydown.enter="searchMovies">
+			<input
+				v-model="searchQuery"
+				minlength="1"
+				@keydown.enter="searchMovies"
+			>
 			<button @click="searchMovies">Поиск</button>
 		</div>
+
+		<div v-if="errorLength" class="error-description center">Введите хотя бы один символ</div>
 
 		<div ref="movies" class="movies-list">
 			<MovieCard
@@ -13,6 +19,8 @@
 				:key="movie.id"
 				:movie="movie"
 			/>
+
+			<div v-if="movies.length === 0" class="error-description center">Ничего не найдено, попробуйте изменить запрос</div>
 		</div>
 
 		<div v-loading="loading" class="movies-loading">
@@ -41,6 +49,7 @@ export default {
 			searchQuery: '',
 			loading: false,
 			error: false,
+			errorLength: false,
 		}
 	},
 	computed: {
@@ -80,11 +89,13 @@ export default {
 		]),
 		async getMovies(page) {
 			this.error = false
+			this.errorLength = false
 
 			const data = await api.getMovies(this.searchQuery, page || this.page)
 
 			if (data.error) {
 				if (data.error === errors.network || data.error === errors.unknown) this.error = true
+				if (data.error === errors.missedParam) this.errorLength = true
 				return null
 			}
 
@@ -122,6 +133,13 @@ export default {
 
 <style lang="scss">
 #page-home {
+	.error-description {
+		&.center {
+			text-align: center;
+			margin-top: 8px;
+		}
+	}
+
 	.movies {
 		&-list {
 			padding: 0 8px;
