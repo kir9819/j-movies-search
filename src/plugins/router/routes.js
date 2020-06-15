@@ -6,7 +6,8 @@ export default [
 	},
 	{
 		name: 'Movie',
-		path: 'movie/:id',
+		path: '/movie/:id',
+		props: true,
 		component: () => import('Pages/Movie'),
 	},
 	{

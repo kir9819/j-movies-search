@@ -62,7 +62,7 @@ export default {
 		},
 	},
 	async created() {
-		this.setMovies()
+		if (this.movies.length === 0) this.setMovies()
 	},
 	mounted() {
 		window.addEventListener('scroll', this.onScroll)

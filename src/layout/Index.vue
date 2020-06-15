@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="app-container">
 		<div
 			v-for="(error, name) in currentErrors"
 			:key="name"
@@ -100,6 +100,18 @@ export default {
 <style lang="scss">
 * {
 	box-sizing: border-box;
+}
+
+body {
+	min-height: 100vh;
+	min-width: 320px;
+	margin: 0;
+	padding: 8px;
+	position: relative;
+}
+
+.app-container {
+	height: 100%;
 }
 
 @keyframes loader-rotate {

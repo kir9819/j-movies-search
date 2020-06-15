@@ -5,6 +5,7 @@ export const errors = {
 	missedParam: 2,
 	unknown: 3,
 	invalidKey: 4,
+	notFound: 5,
 }
 
 export const http = axios.create({
@@ -14,6 +15,15 @@ export const http = axios.create({
 		language: 'ru-RU',
 	},
 })
+
+function getError(error) {
+	if (error.response) {
+		if (error.response.status === 401) return { error: errors.invalidKey }
+		if (error.response.status === 404) return { error: errors.notFound, message: error.response.status_message }
+	}
+
+	return { error: errors.network }
+}
 
 export const api = {
 	async getMovies(search, page = 1) {
@@ -31,12 +41,7 @@ export const api = {
 				},
 			}
 		} catch (error) {
-			if (error.response) {
-				if (error.response.status === 401) return { error: errors.invalidKey }
-				if (error.response.status === 404) return { error: errors.unknown, message: error.response.status_message }
-			}
-
-			return { error: errors.network }
+			return getError(error)
 		}
 	},
 	async getGenres() {
@@ -45,12 +50,7 @@ export const api = {
 
 			return { results: data.genres }
 		} catch (error) {
-			if (error.response) {
-				if (error.response.status === 401) return { error: errors.invalidKey }
-				if (error.response.status === 404) return { error: errors.unknown, message: error.response.status_message }
-			}
-
-			return { error: errors.network }
+			return getError(error)
 		}
 	},
 	async getConfiguration() {
@@ -60,6 +60,15 @@ export const api = {
 			return data
 		} catch {
 			return { error: errors.network }
+		}
+	},
+	async getMovieById(id) {
+		try {
+			const { data } = await http.get(`/movie/${id}`)
+
+			return data
+		} catch (error) {
+			return getError(error)
 		}
 	},
 }
