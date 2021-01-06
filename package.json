@@ -10,7 +10,7 @@
 		"npm:install": "npm install"
 	},
 	"dependencies": {
-		"axios": "0.18.1",
+		"axios": "0.21.1",
 		"core-js": "3.4.3",
 		"lodash": "^4.17.15",
 		"vue": "2.6.11",
